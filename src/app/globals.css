@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #F4C447;
-  --color-background-light: #F8F7F2;
+  --color-primary: #11bed4;
+  --color-background-light: #fcfcfc;
+  --color-background-dark: #102022;
   --color-card-light: #FFFFFF;
-  --color-text-main: #1A1A1A;
+  --color-card-dark: #1F2022;
+  --color-card-black: #1A1A1A;
+  --color-text-main: #1a1a1a;
   --color-text-muted: #666666;
+  --color-accent-yellow: #FACC15;
   
-  --font-sans: 'Manrope', sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Inter', sans-serif;
   
-  --radius-DEFAULT: 0.75rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-lg: 0.5rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
@@ -42,14 +47,36 @@
 
 /* Base styles */
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Utility classes */
 .font-display {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Nav pill styles */
+.nav-pill {
+  @apply px-5 py-1.5 rounded-full border border-gray-300 text-sm font-semibold text-gray-700 bg-white hover:border-gray-800 transition-colors duration-200;
+}
+
+/* Hero button styles */
+.hero-btn {
+  @apply px-8 py-2.5 bg-[#2d2d2d] text-white text-xs font-bold tracking-widest rounded-full hover:bg-black transition-colors uppercase;
+}
+
+/* Bottom pill styles */
+.bottom-pill {
+  @apply px-6 py-2 bg-white rounded-full text-xs font-bold text-gray-600 border border-gray-200 shadow-sm hover:border-gray-400 transition-colors whitespace-nowrap;
+}
+
+/* Glass card effect */
+.glass-card {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Animations */
@@ -77,6 +104,21 @@ body {
 
 .animate-fade-in {
   animation: fade-in 0.5s ease-out;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out forwards;
 }
 
 /* Smooth scrolling and transitions */
@@ -110,8 +152,9 @@ html {
 }
 
 /* Material icons styling */
-.material-icons-outlined {
-  font-family: 'Material Icons Outlined';
+.material-icons-outlined,
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -133,4 +176,19 @@ html {
 
 .shadow-soft {
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Text balance for better line wrapping */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* No scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

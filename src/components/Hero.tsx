@@ -1,66 +1,55 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { IMAGES } from "@/constants/images";
-import { STATS } from "@/constants/data";
+import { useEffect, useRef, useState } from "react";
+
+const HERO_IMAGE = "https://lh3.googleusercontent.com/aida-public/AB6AXuAFozsB5H7UkzJat1i23yEpLkpelJf8ciCGZVrduEXpVN8t745dRGksEuQvlGIXTrsHBRj_-237v9IlDNVLvz3QXykEm6N9zpxek97qXUrUo1hVnnc7bAjv7IK8tSYmXotJKjJOPNg5I2rBNZZKSDXOyL5odXUB6RMGAwl5yC5Cai16q1LscI9TZaAIwrwdBTZWXkDxPzzmaqvba8mbwyoeB8G08yHRSvktkkAJS5BXbbNyRW9ozbSx2PC7MMzkTruJnrg8fF84gQo";
+
+const PILLS = [
+  "Design Planning",
+  "Structure",
+  "Foundation",
+  "Safety",
+  "Preparation",
+];
 
 export default function Hero() {
-  const leftCardRef = useRef<HTMLDivElement>(null);
-  const rightImageRef = useRef<HTMLDivElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
+  const scrollBadgeRef = useRef<HTMLDivElement>(null);
+  const watchReelsRef = useRef<HTMLDivElement>(null);
+  const heroImageRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   useEffect(() => {
     const lenis = (window as any).lenis;
     if (!lenis) return;
 
-    const handleScroll = (e: any) => {
-      const scrollY = e.scroll || window.scrollY;
-      
-      // Parallax for left card
-      if (leftCardRef.current) {
-        const rect = leftCardRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const elementTop = rect.top;
-        const scrollProgress = Math.max(0, Math.min(1, (windowHeight - elementTop) / (windowHeight + rect.height)));
-        const translateY = (scrollProgress - 0.5) * 30;
-        leftCardRef.current.style.transform = `translateY(${translateY}px)`;
-      }
-
-      // Parallax for right image (opposite direction)
-      if (rightImageRef.current) {
-        const rect = rightImageRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const elementTop = rect.top;
-        const scrollProgress = Math.max(0, Math.min(1, (windowHeight - elementTop) / (windowHeight + rect.height)));
-        const translateY = (scrollProgress - 0.5) * -40;
-        rightImageRef.current.style.transform = `translateY(${translateY}px)`;
-      }
-
-      // Parallax for spinning badge
-      if (badgeRef.current) {
-        const rect = badgeRef.current.getBoundingClientRect();
+    const handleScroll = () => {
+      // Parallax for hero image
+      if (heroImageRef.current) {
+        const rect = heroImageRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const elementTop = rect.top;
         const scrollProgress = Math.max(0, Math.min(1, (windowHeight - elementTop) / (windowHeight + rect.height)));
         const translateY = (scrollProgress - 0.5) * 50;
-        const rotate = scrollProgress * 360;
-        badgeRef.current.style.transform = `translateY(${translateY}px) rotate(${rotate}deg)`;
+        heroImageRef.current.style.transform = `translateY(${translateY}px) scale(1.1)`;
       }
 
-      // Parallax for stats
-      if (statsRef.current) {
-        const rect = statsRef.current.getBoundingClientRect();
+      // Parallax for scroll badge
+      if (scrollBadgeRef.current) {
+        const rect = scrollBadgeRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const elementTop = rect.top;
         const scrollProgress = Math.max(0, Math.min(1, (windowHeight - elementTop) / (windowHeight + rect.height)));
-        const translateY = (scrollProgress - 0.5) * -20;
-        statsRef.current.style.transform = `translateY(${translateY}px)`;
+        const translateY = (scrollProgress - 0.5) * 30;
+        scrollBadgeRef.current.style.transform = `translateY(${translateY}px)`;
       }
     };
 
     lenis.on("scroll", handleScroll);
-    handleScroll({ scroll: lenis.scroll });
+    handleScroll();
 
     return () => {
       lenis.off("scroll", handleScroll);
@@ -68,114 +57,127 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 lg:pt-8 lg:pb-16">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-auto lg:h-[640px]">
-        {/* Left Yellow Card */}
-        <div 
-          ref={leftCardRef}
-          className="lg:col-span-5 bg-primary rounded-[2rem] p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden group transition-transform duration-300 ease-out"
-        >
-          {/* Video Thumbnail */}
-          <div className="relative w-full h-40 lg:h-48 rounded-xl overflow-hidden mb-6 shadow-md border-4 border-white/10">
-            <img
-              src={IMAGES.hero.planningWorkers}
-              alt="Construction workers looking at plans"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/10"></div>
-            <div className="absolute top-3 right-3 w-8 h-8 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 cursor-pointer hover:bg-white/50 transition-colors">
-              <span className="material-icons-outlined text-white text-sm">play_arrow</span>
-            </div>
-          </div>
-
-          {/* Text Content */}
-          <div>
-            <h1 className="text-4xl lg:text-[3.25rem] font-display font-bold text-black leading-[1.05] mb-4 lg:mb-6 tracking-tight">
-              Building Tomorrow <br /> with Vision
-            </h1>
-            <p className="text-black/80 font-medium text-sm lg:text-[15px] leading-relaxed mb-8 max-w-[90%]">
-              We build iconic infrastructures that transform city skylines, strengthen communities,
-              boost economic growth, and leave a lasting mark of innovation around the world.
-            </p>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-3 mt-auto relative z-10">
-            <a
-              href="#"
-              className="bg-black text-white pl-6 pr-2 py-2 rounded-full text-sm font-semibold flex items-center gap-3 hover:bg-gray-900 transition-colors shadow-lg"
-            >
-              Get Started
-              <span className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center border border-white/10">
-                <span className="material-icons-outlined text-sm transform -rotate-45">
-                  arrow_forward
-                </span>
+    <section className="relative flex flex-col pt-8 pb-12 bg-background-light overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-[1400px] relative z-10">
+        {/* Title Section */}
+        <div className={`flex flex-col items-center justify-center text-center mb-8 md:mb-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="relative">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] font-medium text-text-main tracking-tight">
+              CONSTRUCTION{" "}
+              <span className="align-super text-3xl sm:text-5xl md:text-7xl material-symbols-outlined font-light ml-2">
+                flare
               </span>
-            </a>
-            <button className="px-5 py-3 rounded-full text-sm font-semibold border border-black/10 hover:bg-black/5 flex items-center gap-2 transition-colors text-black">
-              <span className="material-icons-outlined text-lg">play_circle</span>
-              Watch Video
+            </h1>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] font-medium text-text-main tracking-tight mt-2">
+              PROJECT MANAGEMENT
+            </h1>
+          </div>
+        </div>
+
+        {/* Content Grid */}
+        <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 mb-4 items-start relative transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {/* Left Text */}
+          <div className="lg:col-span-3 flex flex-col justify-start pt-4 pl-2 text-center lg:text-left">
+            <h2 className="text-gray-500 font-bold text-xl md:text-2xl uppercase leading-tight tracking-wide">
+              The Process<br className="hidden lg:block" />
+              {" "}of Creating<br className="hidden lg:block" />
+              {" "}Buildings
+            </h2>
+          </div>
+
+          {/* Center Content */}
+          <div className="lg:col-span-6 flex flex-col items-center text-center pt-2">
+            <p className="text-gray-500 text-sm leading-relaxed mb-8 max-w-[550px] mx-auto">
+              ARC CPM has always provided structural support for buildings and infrastructure. 
+              There are different types of foundations, including shallow foundations and deep 
+              foundations depending on the project&apos;s requirements.
+            </p>
+            <button className="hero-btn shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+              LET&apos;S GO!
             </button>
           </div>
 
-          {/* Spinning Badge */}
-          <div 
-            ref={badgeRef}
-            className="absolute -right-12 bottom-20 lg:bottom-32 transform translate-x-1/4 translate-y-1/4 scale-75 lg:scale-100 hidden md:block transition-transform duration-300 ease-out"
-          >
-            <div className="relative w-32 h-32 bg-white/90 backdrop-blur-xl rounded-full p-2 animate-spin-slow border border-white/50 shadow-xl flex items-center justify-center">
-              <svg className="w-full h-full" viewBox="0 0 100 100">
+          {/* Right Spinning Badge */}
+          <div className="hidden lg:flex lg:col-span-3 justify-end items-start pr-8 pt-8 relative">
+            <div 
+              ref={watchReelsRef}
+              className="relative w-24 h-24 rounded-full border border-dashed border-gray-400 flex items-center justify-center animate-spin-slow"
+            >
+              <svg className="w-full h-full absolute top-0 left-0" viewBox="0 0 100 100">
                 <path
                   d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
                   fill="transparent"
-                  id="curve"
+                  id="circlePath"
                 />
-                <text className="text-[9.5px] uppercase font-bold tracking-[0.15em] fill-black">
-                  <textPath href="#curve">
-                    Elevating skylines • Engineering strength •
+                <text fill="#666" fontSize="11" fontWeight="bold" letterSpacing="3">
+                  <textPath href="#circlePath" startOffset="0%">
+                    WATCH REELS • WATCH REELS •
                   </textPath>
                 </text>
               </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="material-icons-outlined text-2xl text-black">add</span>
-              </div>
+            </div>
+            <div className="absolute top-8 right-8 w-24 h-24 flex items-center justify-center pointer-events-none translate-x-[2px] translate-y-[2px]">
+              <span 
+                className="material-symbols-outlined text-5xl text-black"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+              >
+                play_arrow
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Right Image with Stats */}
-        <div className="lg:col-span-7 relative rounded-[2rem] overflow-hidden h-full min-h-[400px]">
-          <div 
-            ref={rightImageRef}
-            className="w-full h-full transition-transform duration-300 ease-out"
-          >
-            <img
-              src={IMAGES.hero.crane}
-              alt="Large yellow crane against blue sky"
-              className="w-full h-full object-cover"
+        {/* Hero Image Section */}
+        <div className={`relative w-full mt-4 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="relative z-10 w-full overflow-hidden rounded-2xl md:rounded-3xl">
+            <div 
+              ref={heroImageRef}
+              className="w-full aspect-[16/9] lg:aspect-[2/1] bg-cover bg-center shadow-sm transition-transform duration-300 ease-out"
+              style={{ 
+                backgroundImage: `url('${HERO_IMAGE}')`,
+                transformOrigin: 'center center'
+              }}
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-          
-          {/* Stats */}
+
+          {/* Scroll Down Badge */}
           <div 
-            ref={statsRef}
-            className="absolute bottom-0 left-0 w-full p-8 lg:p-12 transition-transform duration-300 ease-out"
+            ref={scrollBadgeRef}
+            className="absolute -bottom-10 left-4 md:left-8 z-20 transition-transform duration-300 ease-out"
           >
-            <div className="grid grid-cols-3 gap-8 w-full border-t border-white/20 pt-8">
-              {STATS.map((stat) => (
-                <div key={stat.label} className="text-white">
-                  <div className="text-3xl lg:text-5xl font-bold font-display">{stat.value}</div>
-                  <div className="text-xs lg:text-sm text-white/70 mt-1 uppercase tracking-wider font-medium">
-                    {stat.label}
-                  </div>
+            <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-white border border-gray-200 flex flex-col items-center justify-center shadow-sm">
+              <div className="relative w-full h-full flex items-center justify-center">
+                <div className="absolute inset-0 animate-spin-slow">
+                  <svg className="w-full h-full p-1" viewBox="0 0 100 100">
+                    <path
+                      d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                      fill="transparent"
+                      id="scrollPath"
+                    />
+                    <text fill="#333" fontSize="11" fontWeight="bold" letterSpacing="2">
+                      <textPath href="#scrollPath" startOffset="0%">
+                        SCROLL DOWN • SCROLL DOWN •
+                      </textPath>
+                    </text>
+                  </svg>
                 </div>
-              ))}
+                <span className="material-symbols-outlined text-3xl md:text-4xl text-black">
+                  arrow_downward
+                </span>
+              </div>
             </div>
+          </div>
+
+          {/* Pills */}
+          <div className="hidden md:flex flex-wrap justify-end gap-3 absolute -bottom-5 right-0 z-20 pr-4">
+            {PILLS.map((pill) => (
+              <button key={pill} className="bottom-pill">
+                {pill}
+              </button>
+            ))}
           </div>
         </div>
       </div>
     </section>
   );
 }
-

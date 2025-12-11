@@ -4,8 +4,8 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
-  title: "ConsMart Construction",
-  description: "Building Tomorrow with Vision - We build iconic infrastructures that transform city skylines, strengthen communities, boost economic growth, and leave a lasting mark of innovation around the world.",
+  title: "ARC CPM - Construction Project Management",
+  description: "ARC CPM has always provided structural support for buildings and infrastructure. Expert construction project management services.",
 };
 
 export default function RootLayout({
@@ -16,20 +16,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className="bg-background-light text-text-main antialiased">
+      <body className="bg-background-light text-text-main antialiased overflow-x-hidden">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

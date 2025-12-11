@@ -1,6 +1,20 @@
 "use client";
 
-import { FOOTER_LINKS } from "@/constants/data";
+const FOOTER_LINKS = {
+  company: [
+    { label: "About Us", href: "#about" },
+    { label: "Careers", href: "#" },
+    { label: "Blog", href: "#" },
+    { label: "Press", href: "#" },
+  ],
+  services: [
+    { label: "Project Management", href: "#services" },
+    { label: "Consulting", href: "#" },
+    { label: "Resource Planning", href: "#" },
+    { label: "Safety Audits", href: "#" },
+  ],
+};
+
 
 export default function Footer() {
   return (
@@ -72,19 +86,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-6 text-sm">Legal</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              {FOOTER_LINKS.legal.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="hover:text-white transition-colors">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-white font-bold mb-6 text-sm">Contact</h4>
-            <ul className="space-y-3 text-sm text-gray-400">
-              {FOOTER_LINKS.contact.map((link) => (
+              {FOOTER_LINKS.company.map((link) => (
                 <li key={link.label}>
                   <a href={link.href} className="hover:text-white transition-colors">
                     {link.label}
