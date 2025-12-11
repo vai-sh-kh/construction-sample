@@ -17,7 +17,7 @@ export default function Footer() {
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-black">
                 <span className="material-icons-outlined text-lg">architecture</span>
               </div>
-              <span className="text-2xl font-bold font-display tracking-tight">Arkonex</span>
+              <span className="text-2xl font-bold font-display tracking-tight">ConsMart</span>
             </div>
             <h2 className="text-4xl lg:text-6xl font-display font-medium leading-[1.1] mb-8 text-white">
               Building better cities, <br /> one project at a time.
@@ -98,7 +98,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-gray-800/50">
           <div className="text-[11px] text-gray-500 uppercase tracking-wider font-medium">
-            © 2023 Arkonex Corp — All rights reserved.
+            © 2023 ConsMart Corp — All rights reserved.
           </div>
           <div className="flex gap-4">
             <a

@@ -4,7 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
-  title: "Arkonex Construction",
+  title: "ConsMart Construction",
   description: "Building Tomorrow with Vision - We build iconic infrastructures that transform city skylines, strengthen communities, boost economic growth, and leave a lasting mark of innovation around the world.",
 };
 

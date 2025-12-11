@@ -1,4 +1,4 @@
-// All image URLs used in the Arkonex Construction website
+// All image URLs used in the ConsMart Construction website
 
 export const IMAGES = {
   // Hero Section

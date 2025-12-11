@@ -13,7 +13,7 @@ export default function Navbar() {
               <span className="material-icons-outlined text-base">architecture</span>
             </div>
             <span className="text-xl font-bold font-display tracking-tight text-black">
-              Arkonex
+              ConsMart
             </span>
           </div>
 

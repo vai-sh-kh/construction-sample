@@ -1,4 +1,4 @@
-// All text content and data for the Arkonex Construction website
+// All text content and data for the ConsMart Construction website
 
 export const NAV_LINKS = [
   { label: "Home", href: "#", active: true },
@@ -176,7 +176,7 @@ export const FOOTER_LINKS = {
     { label: "Cookie Policy", href: "#" },
   ],
   contact: [
-    { label: "support@arkonex.com", href: "mailto:support@arkonex.com" },
+    { label: "support@consmart.com", href: "mailto:support@consmart.com" },
     { label: "+1 (555) 123-4567", href: "tel:+15551234567" },
     { label: "123 Construction Blvd, NY", href: "#" },
   ],
